@@ -1,3 +1,11 @@
+'''
+Author: your name
+Date: 2020-09-22 19:51:15
+LastEditTime: 2020-09-22 20:08:36
+LastEditors: Please set LastEditors
+Description: In User Settings Edit
+FilePath: \Some_Convert_Tool\from_TalendAPITester_turn_to_postman.py
+'''
 import json
 
 
@@ -42,7 +50,6 @@ def turn_the_API(old_file_path: str, new_file_path: str):
             }
             new_json["item"] = []
             item_base = old_json['entities'][0]['children'][0]['children']
-            # TODO fix the json_api turn
             for each_item in item_base:
                 each_item = each_item['entity']
                 new_json["item"].append(turn_api_request(each_item))
@@ -60,8 +67,8 @@ def turn_api_request(item: dict):
         "disabled": not x['enabled']
     } for x in item['headers']]
     request_body = {
-        "mode": 'row',
-        "row": item['body']['textBody']
+        "mode": 'raw',
+        "raw": item['body']['textBody']
     }
     request_description = item['description'] if 'description' in item else ""
     url_host = [item['uri']['host'].replace('$', '{', 1) + "}"]
